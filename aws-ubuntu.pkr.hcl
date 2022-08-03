@@ -8,7 +8,7 @@ packer {
   }
 }
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "${var.blue_ami}"
+  ami_name      = "Blue_ami"
   instance_type = "t2.micro"
   region        = "ap-northeast-3"
   vpc_id        = "vpc-078aa8aac8e9cde42"
@@ -25,7 +25,7 @@ source "amazon-ebs" "ubuntu" {
   ssh_username = "ubuntu"
 }
 source "amazon-ebs" "ubuntu-focal" {
-  ami_name      = "${var.green_ami}"
+  ami_name      = "Green_ami"
   instance_type = "t2.micro"
   region        = "ap-northeast-3"
   vpc_id        = "vpc-078aa8aac8e9cde42"

@@ -18,10 +18,7 @@ No resources.
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_blue"></a> [blue](#input\_blue) | n/a | `string` | `"=blue-packer-ubuntu-apache"` | no |
-| <a name="input_green"></a> [green](#input\_green) | n/a | `string` | `"=green-packer-ubuntu-apache"` | no |
+No inputs.
 
 ## Outputs
 
