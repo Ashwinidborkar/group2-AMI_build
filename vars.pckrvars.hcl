@@ -1,9 +1,2 @@
-variable "green_ami" {
-  type    = string
-  default = "packer-ubuntu-apache"
-}
-
-variable "blue_ami" {
-  type    = string
-  default = "packer-ubuntu-apache"
-}
+green_ami_prefix = "green"
+blue_ami_prefix = "blue"

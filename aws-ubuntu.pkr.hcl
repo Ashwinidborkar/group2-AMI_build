@@ -7,8 +7,24 @@ packer {
     }
   }
 }
-source "amazon-ebs" "ubuntu" {
-  ami_name      = "Blue_ami"
+locals {
+  timestamp = regex_replace(timestamp(), "[- TZ:]", "")
+}
+
+variable "green_ami_prefix" {
+  type    = string
+  default ="green_ami"
+}
+
+variable "blue_ami_prefix" {
+  type    = string
+  default ="blue_ami"
+}
+
+
+
+source "amazon-ebs" "ubuntu_blue" {
+  ami_name      = "${var.blue_ami_prefix}-${local.timestamp}"
   instance_type = "t2.micro"
   region        = "ap-northeast-3"
   vpc_id        = "vpc-078aa8aac8e9cde42"
@@ -25,7 +41,7 @@ source "amazon-ebs" "ubuntu" {
   ssh_username = "ubuntu"
 }
 source "amazon-ebs" "ubuntu-focal" {
-  ami_name      = "Green_ami"
+  ami_name      = "${var.green_ami_prefix}-${local.timestamp}"
   instance_type = "t2.micro"
   region        = "ap-northeast-3"
   vpc_id        = "vpc-078aa8aac8e9cde42"
@@ -41,10 +57,12 @@ source "amazon-ebs" "ubuntu-focal" {
   }
   ssh_username = "ubuntu"
 }
+ 
+
 build {
   name = "learn-packer"
   sources = [
-    "source.amazon-ebs.ubuntu",
+    "source.amazon-ebs.ubuntu_blue",
     "source.amazon-ebs.ubuntu-focal"
   ]
   provisioner "ansible" {
