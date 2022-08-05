@@ -1,6 +1,9 @@
 ---
 - hosts: web
   become: true
+
+  vars:
+    server_color: "{{ color }}"
   tasks:
     - name: Update the apt-get
       apt:
@@ -13,26 +16,26 @@
 
     - name: Create a directory if it does not exist
       file:
-        path: "var/www/green"
+        path: "var/www/{{ color }}"
         state: directory
 
     - name: Copy new temple file index.html.j2 file
       template:
         src: "index.html.j2"
-        dest: "var/www/green/index.html"
+        dest: "var/www/{{ color }}/index.html"
 
     - name: Copy configuration file for apache
       copy:
         src: "hussain.conf"
-        dest: "/etc/apache2/sites-available/green.conf"
+        dest: "/etc/apache2/sites-available/{{ color }}.conf"
 
     - name: Disable site for default.conf
       command:
         a2dissite 000-default.conf
 
-    - name: Enable site for green.conf
+    - name: Enable site for {{ color }}.conf
       command:
-        a2ensite green.conf
+        a2ensite {{ color }}.conf
 
     - name: Restart apache2 server
       service:
