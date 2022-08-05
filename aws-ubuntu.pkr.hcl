@@ -21,6 +21,16 @@ variable "blue_ami_prefix" {
   default ="blue_ami"
 }
 
+variable "bldeploy"{
+  type = string
+  default = "blue"
+}
+
+variable "grdeploy"{
+  type = string
+  default = "green"
+}
+
 
 
 source "amazon-ebs" "ubuntu_blue" {
@@ -66,6 +76,7 @@ build {
     "source.amazon-ebs.ubuntu-focal"
   ]
   provisioner "ansible" {
-    playbook_file = "/Users/ashwini.borkar/src/Talent-Academy/Terraform_Labs/ec2-lab/playbooks/playbooks.yml"
+    playbook_file = "./playbooks/main.yml"
+    extra_arguments = ["--extra-vars", "color=${var.grdeploy}"]
   }
 }
